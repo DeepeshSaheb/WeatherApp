@@ -1,0 +1,44 @@
+<div>
+  <div class="wrapper">
+    <h2 class="heading">WEATHER FORECAST</h2>
+    <form class="lookCity" (ngSubmit)=onSubmit(f) #f="ngForm">
+      <input type="text" class="form-control" name="city" ngModel #city="ngModel" placeholder="Enter City Name">
+      <button class="btn btn-large btn-primary" name="button">Search</button>
+    </form>
+    <div  *ngIf="isError">
+      <h2 style="margin-left: -120px;"> No Records Found</h2>
+    </div>
+    <div *ngIf="currentWeather">
+      <div class="city">{{currentWeather?.cityName}}</div>
+      <div class="panel panel-info">
+        <div class="panel-heading" style="font-size: x-large;">Current Weather</div>
+        <div class="panel-body">
+          <div class="temperature">{{currentWeather?.temp}}&#8457;</div>
+          <div class="description">{{currentWeather?.descrription}}</div>
+          <img src="https://openweathermap.org/img/w/{{currentWeather?.img}}.png">
+          <div class="pan">
+            <div class="into temp">
+              <div class="tempMax tempM">Minimum Temp: {{currentWeather?.minTemp}} &#8457;</div>
+              <div class="tempMin tempM">Maximum Temp: {{currentWeather?.maxTemp}}&#8457;</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="currentWeather" style="margin: 30px;" class="panel panel-info">
+    <div class="panel-heading text-center" style="font-size: x-large;">5 Day Forecast</div>
+    <div class="panel-body">
+      <div class="forecastwrapper">
+        <div class="forecast" *ngFor="let dayWeather of forecasts">
+          <div class="day">
+            <h2 class="date">{{dayWeather.date | date: 'MMMMd'}}</h2>
+            <img src="https://openweathermap.org/img/w/{{dayWeather.img}}.png">
+            <h2 class="description">{{dayWeather.description}}</h2>
+            <h3 class="tempM">{{dayWeather.temp}}&#8457;</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
